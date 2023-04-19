@@ -16,11 +16,11 @@ Once main application complied the deployment layout should be:
 
 ```
 bin\
-  wkhtmltopdf.exe
+  \- wkhtmltopdf.exe
 
 template\
-  template_files\
-  template.htm
+  |- template_files\
+  \- template.htm
 
 tfs2pdf.exe
 ```
