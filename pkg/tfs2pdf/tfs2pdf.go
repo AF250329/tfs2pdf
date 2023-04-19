@@ -1,3 +1,4 @@
+// Main logic of application
 package tfs2pdf
 
 import (
@@ -8,6 +9,7 @@ import (
 	"github.com/AF250329/tfs2pdf/pkg/tfs"
 )
 
+// Function execute all logic of application
 func Run(args []string, outputFolder string) error {
 	fmt.Println("started")
 

@@ -1,5 +1,7 @@
+// Package provide API and data structs to work with TFS
 package tfs
 
+// Data structure that describe 'reference' in TFS
 type TfsReference struct {
 	ID           string
 	WorkItemType string
@@ -9,11 +11,13 @@ type TfsReference struct {
 	LinkComment  string
 }
 
+// Data structure that describe item from 'History'
 type HistoryItem struct {
 	Title string
 	Date  string
 }
 
+// Data structure that contain all elements to fill template HTML page
 type Data struct {
 	EpicTitle              string
 	OriginalEstimate       string
@@ -51,6 +55,7 @@ type Data struct {
 	ImpactAnalysis         string
 }
 
+// Function will communicate with TFS server and return technical details about provided TFS item ID
 func ReadTfsItem(id int) *Data {
 
 	data := &Data{

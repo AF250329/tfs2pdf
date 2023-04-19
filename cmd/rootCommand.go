@@ -1,3 +1,4 @@
+// Collection of Cobra commands used in this application
 package commands
 
 import (
@@ -49,6 +50,7 @@ func init() {
 	// rootCommand.MarkPersistentFlagRequired("tfs-token")
 }
 
+// Execute root command and return error if any
 func Execute() error {
 
 	helpTemplate := helpTemplate()
@@ -57,6 +59,8 @@ func Execute() error {
 	return rootCommand.Execute()
 }
 
+// Function will create 'usage' template for Cobra command
+// where specially mention about providing <TFS item ID> parameter to command
 func helpTemplate() string {
 	// Slightly modified template from
 	// https://github.com/spf13/cobra/blob/284f4101043c4b1faebde411caec35a7b6e36494/command.go#L539
