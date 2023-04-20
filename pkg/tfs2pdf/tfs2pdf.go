@@ -20,7 +20,6 @@ func Run(args []string, outputFolder, tfsAddress, tfsToken string) error {
 	if err != nil {
 		return err
 	}
-
 	data, err := tfs.ReadTfsItem(itemId, tfsAddress, tfsToken)
 	if err != nil {
 		return err

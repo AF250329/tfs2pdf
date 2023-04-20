@@ -2,19 +2,18 @@
 package tfs
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"strings"
+	"time"
 )
 
 const (
-	URL = "http://susday2582.corp.ncr.com:8080/tfs/DefaultCollection/_apis/wit/workitems/%d"
+	URL = "http://susday2582.corp.ncr.com:8080/tfs/DefaultCollection/_apis/wit/workitems/%d?$expand=all"
 )
 
 // Data structure that describe 'reference' in TFS
 type TfsReference struct {
-	ID           string
+	ID           int
 	WorkItemType string
 	Title        string
 	AssigendTo   string
@@ -70,45 +69,23 @@ type Data struct {
 // Function will communicate with TFS server and return technical details about provided TFS item ID
 func ReadTfsItem(id int, tfsAddress, tfsToken string) (*Data, error) {
 
-	tfsWorkItem, err := loadDataFromServer(id, tfsToken)
-	if err != nil {
-		return nil, err
-	}
-
-	data := convert(tfsWorkItem)
-
-	return data, nil
-}
-
-func loadDataFromServer(id int, tfsToken string) (*TfsWorkItem, error) {
-
 	tfsHttpClient := &TfsHttpClient{
 		Token: tfsToken,
 	}
 
 	url := fmt.Sprintf(URL, id)
 
-	resp, err := tfsHttpClient.GetJson(url)
+	tfsWorkItem, err := tfsHttpClient.GetWorkItem(url)
 	if err != nil {
 		return nil, err
 	}
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
+	data := convert(tfsWorkItem, tfsHttpClient)
 
-	tfsWorkItem := &TfsWorkItem{}
-
-	err = json.Unmarshal(body, tfsWorkItem)
-	if err != nil {
-		return nil, err
-	}
-
-	return tfsWorkItem, nil
+	return data, nil
 }
 
-func convert(t *TfsWorkItem) *Data {
+func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 	data := &Data{
 		WorkItemType:       t.Fields.SystemWorkItemType,
 		EpicTitle:          fmt.Sprintf("%s %d: %s", t.Fields.SystemWorkItemType, t.ID, t.Fields.SystemTitle),
@@ -138,6 +115,74 @@ func convert(t *TfsWorkItem) *Data {
 		Theme:              t.Fields.RetalixCustomTemplateTheme,
 		Description:        strings.ReplaceAll(t.Fields.SystemDescription, "susday2582", "susday2582.corp.ncr.com"),
 		AcceptanceCriteria: strings.ReplaceAll(t.Fields.MicrosoftVSTSCommonAcceptanceCriteria, "susday2582", "susday2582.corp.ncr.com"),
+	}
+
+	for _, val := range t.Relations {
+
+		switch val.Rel {
+
+		case "System.LinkTypes.Hierarchy-Forward":
+
+			sourceItem, err := client.GetWorkItem(val.URL)
+			if err != nil {
+				panic(err)
+			}
+
+			// This is 'Implementation' link
+			// https://learn.microsoft.com/en-us/azure/devops/boards/queries/link-type-reference?view=azure-devops
+			data.ImplementationItems = append(data.ImplementationItems, TfsReference{
+				ID:           sourceItem.ID,
+				WorkItemType: sourceItem.Fields.SystemWorkItemType,
+				Title:        sourceItem.Fields.SystemTitle,
+				AssigendTo:   sourceItem.Fields.SystemAssignedTo,
+				Status:       sourceItem.Fields.SystemState,
+				LinkComment:  "", // ??
+			})
+
+		case "Hyperlink":
+			// This is link to external resource (sharepoint for example)
+			data.ImplementationItems = append(data.ImplementationItems, TfsReference{
+				ID:           0,
+				WorkItemType: "Hyperlink",
+				Title:        "",
+				AssigendTo:   "",
+				Status:       "",
+				LinkComment:  val.URL, // ??
+			})
+
+		case "ArtifactLink":
+			// This is special link - directly to source code
+			// Don't need to get this item
+
+		default:
+
+			sourceItem, err := client.GetWorkItem(val.URL)
+			if err != nil {
+				panic(err)
+			}
+
+			// All links
+			data.AllLinks = append(data.AllLinks, TfsReference{
+				ID:           sourceItem.ID,
+				WorkItemType: sourceItem.Fields.SystemWorkItemType,
+				Title:        sourceItem.Fields.SystemTitle,
+				AssigendTo:   sourceItem.Fields.SystemAssignedTo,
+				Status:       sourceItem.Fields.SystemState,
+				LinkComment:  "", // ??
+			})
+		}
+	}
+
+	historyCollection, err := client.GetHistoryLinks(t.Links.WorkItemHistory.Href)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, val := range historyCollection.Value {
+		data.History = append(data.History, HistoryItem{
+			Title: val.Value,
+			Date:  val.RevisedDate.Format(time.RFC3339),
+		})
 	}
 
 	return data

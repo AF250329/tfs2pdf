@@ -6,9 +6,20 @@ type TfsWorkItem struct {
 	ID     int `json:"id,omitempty"`
 	Rev    int `json:"rev,omitempty"`
 	Fields struct {
+		SystemID                                            int       `json:"System.Id"`
+		SystemAreaID                                        int       `json:"System.AreaId"`
 		SystemAreaPath                                      string    `json:"System.AreaPath"`
 		SystemTeamProject                                   string    `json:"System.TeamProject"`
+		SystemNodeName                                      string    `json:"System.NodeName"`
+		SystemAreaLevel1                                    string    `json:"System.AreaLevel1"`
+		SystemRev                                           int       `json:"System.Rev"`
+		SystemAuthorizedDate                                time.Time `json:"System.AuthorizedDate"`
+		SystemRevisedDate                                   time.Time `json:"System.RevisedDate"`
+		SystemIterationID                                   int       `json:"System.IterationId"`
 		SystemIterationPath                                 string    `json:"System.IterationPath"`
+		SystemIterationLevel1                               string    `json:"System.IterationLevel1"`
+		SystemIterationLevel2                               string    `json:"System.IterationLevel2"`
+		SystemIterationLevel3                               string    `json:"System.IterationLevel3"`
 		SystemWorkItemType                                  string    `json:"System.WorkItemType"`
 		SystemState                                         string    `json:"System.State"`
 		SystemReason                                        string    `json:"System.Reason"`
@@ -17,6 +28,9 @@ type TfsWorkItem struct {
 		SystemCreatedBy                                     string    `json:"System.CreatedBy"`
 		SystemChangedDate                                   time.Time `json:"System.ChangedDate"`
 		SystemChangedBy                                     string    `json:"System.ChangedBy"`
+		SystemAuthorizedAs                                  string    `json:"System.AuthorizedAs"`
+		SystemPersonID                                      int       `json:"System.PersonId"`
+		SystemWatermark                                     int       `json:"System.Watermark"`
 		SystemTitle                                         string    `json:"System.Title"`
 		SystemBoardColumn                                   string    `json:"System.BoardColumn"`
 		SystemBoardColumnDone                               bool      `json:"System.BoardColumnDone"`
@@ -58,9 +72,24 @@ type TfsWorkItem struct {
 		RetalixCustomTemplateAPIChanges                     string    `json:"Retalix.CustomTemplate.APIChanges"`
 		SystemDescription                                   string    `json:"System.Description"`
 		MicrosoftVSTSCommonAcceptanceCriteria               string    `json:"Microsoft.VSTS.Common.AcceptanceCriteria"`
+		RetalixCustomTemplateComments                       string    `json:"Retalix.CustomTemplate.Comments"`
 		RetalixCustomTemplateImpactAnnalysisDetail          string    `json:"Retalix.CustomTemplate.ImpactAnnalysisDetail"`
 		SystemTags                                          string    `json:"System.Tags"`
 	} `json:"fields"`
+	Relations []struct {
+		Rel string `json:"rel"`
+		URL string `json:"url"`
+		// Attributes []struct {
+		// 	IsLocked             bool      `json:"isLocked,omitempty"`
+		// 	AuthorizedDate       time.Time `json:"authorizedDate,omitempty"`
+		// 	ID                   int       `json:"id,omitempty"`
+		// 	ResourceCreatedDate  time.Time `json:"resourceCreatedDate,omitempty"`
+		// 	ResourceModifiedDate time.Time `json:"resourceModifiedDate,omitempty"`
+		// 	RevisedDate          time.Time `json:"revisedDate,omitempty"`
+		// 	Comment              string    `json:"comment,omitempty"`
+		// 	Name                 string    `json:"name,omitempty"`
+		// } `json:"attributes,omitempty"`
+	} `json:"relations"`
 	Links struct {
 		Self struct {
 			Href string `json:"href"`
@@ -85,4 +114,19 @@ type TfsWorkItem struct {
 		} `json:"fields"`
 	} `json:"_links"`
 	URL string `json:"url"`
+}
+
+type WorkItemHistory struct {
+	Count int `json:"count"`
+	Value []struct {
+		Rev       int    `json:"rev"`
+		Value     string `json:"value"`
+		RevisedBy struct {
+			ID   string `json:"id"`
+			Name string `json:"name"`
+			URL  string `json:"url"`
+		} `json:"revisedBy"`
+		RevisedDate time.Time `json:"revisedDate"`
+		URL         string    `json:"url"`
+	} `json:"value"`
 }
