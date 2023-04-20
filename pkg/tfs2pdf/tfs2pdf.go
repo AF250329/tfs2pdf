@@ -3,6 +3,8 @@ package tfs2pdf
 
 import (
 	"fmt"
+	"log"
+	"path/filepath"
 	"strconv"
 
 	"github.com/AF250329/tfs2pdf/pkg/pdf"
@@ -10,7 +12,8 @@ import (
 )
 
 // Function execute all logic of application
-func Run(args []string, outputFolder string) error {
+func Run(args []string, outputFolder, tfsAddress, tfsToken string) error {
+
 	fmt.Println("started")
 
 	itemId, err := strconv.Atoi(args[0])
@@ -18,12 +21,24 @@ func Run(args []string, outputFolder string) error {
 		return err
 	}
 
-	data := tfs.ReadTfsItem(itemId)
+	data, err := tfs.ReadTfsItem(itemId, tfsAddress, tfsToken)
+	if err != nil {
+		return err
+	}
+
+	log.Default().Printf("received data from TFS server")
 
 	p := &pdf.PdfData{
 		OutputFolder: outputFolder,
 		FileName:     fmt.Sprintf("%s.pdf", args[0]),
 	}
 
-	return p.Create(data)
+	err = p.Create(data)
+	if err != nil {
+		return err
+	}
+
+	log.Default().Printf("successfully create PDF file at: %v", filepath.Join(p.OutputFolder, p.FileName))
+
+	return nil
 }

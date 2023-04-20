@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var pdfOutputFolder string
+var pdfOutputFolder, tfsToken, tfsAddress string
 
 // addCmd represents the add command
 var rootCommand = &cobra.Command{
@@ -29,6 +29,14 @@ var rootCommand = &cobra.Command{
 			return fmt.Errorf("could not convert provided TFS item ID to number. Provided value: %v", args[0])
 		}
 
+		// if tfsAddress == "" {
+		// 	return fmt.Errorf("Team Foundation Server address could not be empty string. Please provide correct address at --tfs-url parameter")
+		// }
+
+		if tfsToken == "" {
+			return fmt.Errorf("Team Foundation Server token could not be empty string. Please provide correct token at --token parameter")
+		}
+
 		return nil
 	},
 	Run: runApplication,
@@ -36,7 +44,7 @@ var rootCommand = &cobra.Command{
 
 func runApplication(cmd *cobra.Command, args []string) {
 
-	err := tfs2pdf.Run(args, pdfOutputFolder)
+	err := tfs2pdf.Run(args, pdfOutputFolder, tfsAddress, tfsToken)
 	if err != nil {
 		// Error should be already printed
 	}
@@ -48,6 +56,12 @@ func init() {
 
 	rootCommand.PersistentFlags().StringVar(&pdfOutputFolder, "output", pdfOutputFolder, "Output folder where PDF file will be created")
 	// rootCommand.MarkPersistentFlagRequired("tfs-token")
+
+	// rootCommand.PersistentFlags().StringVar(&tfsAddress, "tfs-url", "http://almtfs.ncr.com:8080/tfs/DefaultCollection/R10StoreSolution", "URL of Team Foundation Server")
+	// rootCommand.MarkPersistentFlagRequired("tfs-url")
+
+	rootCommand.PersistentFlags().StringVar(&tfsToken, "token", "", "Authentication token for Team Foundation Server server")
+	rootCommand.MarkPersistentFlagRequired("token")
 }
 
 // Execute root command and return error if any

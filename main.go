@@ -10,7 +10,7 @@ import (
 func main() {
 	err := commands.Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error occurred while running application ! Error is: %s", err)
+		fmt.Fprintf(os.Stderr, "Error occurred while running application !\nError is:\t%s", err)
 		os.Exit(1)
 	}
 }

@@ -2,20 +2,18 @@
 package pdf
 
 import (
-	"errors"
+	"context"
 	"fmt"
-	"io"
-	"io/fs"
+	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"text/template"
+	"time"
 
 	"github.com/AF250329/tfs2pdf/pkg/tfs"
-	wkhtmltopdf "github.com/SebastiaanKlippert/go-wkhtmltopdf"
-)
-
-const (
-	EXECUTABLE_FILE_NAME = "wkhtmltopdf.exe"
+	"github.com/chromedp/cdproto/page"
+	"github.com/chromedp/chromedp"
 )
 
 var (
@@ -39,48 +37,21 @@ func getPathToTemplateFolder() string {
 	return pathToTemplateFolder
 }
 
-func copyBinFile() error {
-
-	dir, _ := os.Executable()
-
-	dir = filepath.Dir(dir)
-
-	sourceFileName := filepath.Join(dir, "bin", EXECUTABLE_FILE_NAME)
-
-	destinationFileName := filepath.Join(dir, EXECUTABLE_FILE_NAME)
-	_, err := os.Stat(destinationFileName)
-	if errors.Is(err, fs.ErrExist) {
-		// File already exist
-		return nil
-	}
-
-	err = Copy(sourceFileName, destinationFileName)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (p *PdfData) Create(data *tfs.Data) error {
 
 	pathToTemplateFolder = getPathToTemplateFolder()
 
-	copyBinFile()
+	htmlFile := p.parseTemplate(data)
 
-	pdfDocument := createNewPdfDocument()
+	htmlFile = p.convertPath(htmlFile)
 
-	page1 := p.createPage(data)
-	pdfDocument.AddPage(page1)
+	log.Default().Printf("trying to print it to PDF printer")
 
-	err := pdfDocument.Create()
-	if err != nil {
-		return err
-	}
+	pdfRawData := p.loadPage(htmlFile)
 
 	outputFileName := filepath.Join(p.OutputFolder, p.FileName)
 
-	err = pdfDocument.WriteFile(outputFileName)
+	err := os.WriteFile(outputFileName, pdfRawData, os.ModePerm)
 	if err != nil {
 		return err
 	}
@@ -88,23 +59,16 @@ func (p *PdfData) Create(data *tfs.Data) error {
 	return nil
 }
 
-func createNewPdfDocument() *wkhtmltopdf.PDFGenerator {
-	pdfDocument, _ := wkhtmltopdf.NewPDFGenerator()
-	pdfDocument.Dpi.Set(800)
-	pdfDocument.MarginBottomUnit.Set("1.27cm")
-	pdfDocument.MarginLeftUnit.Set("1.27cm")
-	pdfDocument.MarginRightUnit.Set("1.27cm")
-	pdfDocument.MarginTopUnit.Set("1.27cm")
-	pdfDocument.NoCollate.Set(true)
-	pdfDocument.NoOutline.Set(true)
-	pdfDocument.Orientation.Set("landscape")
-	pdfDocument.PageSize.Set("A4")
+func (p PdfData) convertPath(htmlFilePath string) string {
 
-	return pdfDocument
+	htmlFilePath = strings.ReplaceAll(htmlFilePath, "\\", "/")
+
+	htmlFilePath = fmt.Sprintf("file://%s", htmlFilePath)
+
+	return htmlFilePath
 }
 
-func (p PdfData) createPage(data *tfs.Data) *wkhtmltopdf.PageReader {
-
+func (p PdfData) parseTemplate(data *tfs.Data) string {
 	sourceFileName := filepath.Join(pathToTemplateFolder, "template.htm")
 
 	tmpl, err := template.ParseFiles(sourceFileName)
@@ -112,13 +76,15 @@ func (p PdfData) createPage(data *tfs.Data) *wkhtmltopdf.PageReader {
 		panic(err)
 	}
 
-	destinationFileName := filepath.Join(os.TempDir(), "tmp-template.tmp")
+	destinationFileName := filepath.Join(os.TempDir(), "tmp-template.tmp.html")
 	os.Remove(destinationFileName)
 
 	destinationFile, err := os.Create(destinationFileName)
 	if err != nil {
 		panic(err)
 	}
+
+	CopyDirectory(filepath.Join(pathToTemplateFolder, "template_files"), filepath.Join(os.TempDir(), "template_files"))
 
 	err = tmpl.Execute(destinationFile, data)
 	if err != nil {
@@ -127,119 +93,50 @@ func (p PdfData) createPage(data *tfs.Data) *wkhtmltopdf.PageReader {
 
 	destinationFile.Close()
 
-	pageSourceFile, err := os.Open(destinationFileName)
-	if err != nil {
-		panic(err)
-	}
-
-	pdfPage1 := wkhtmltopdf.NewPageReader(pageSourceFile)
-	pdfPage1.EnableLocalFileAccess.Set(true)
-
-	return pdfPage1
+	return destinationFileName
 }
 
-func CopyDirectory(scrDir, dest string) error {
-	entries, err := os.ReadDir(scrDir)
-	if err != nil {
-		return err
+func (p PdfData) loadPage(htmlFilePath string) []byte {
+	taskCtx, cancel := chromedp.NewContext(
+		context.Background(),
+		chromedp.WithLogf(log.Printf),
+	)
+	defer cancel()
+
+	var pdfBuffer []byte
+
+	if err := chromedp.Run(taskCtx, printToPDF(htmlFilePath, &pdfBuffer)); err != nil {
+		log.Fatal(err)
 	}
-	for _, entry := range entries {
-		sourcePath := filepath.Join(scrDir, entry.Name())
-		destPath := filepath.Join(dest, entry.Name())
 
-		fileInfo, err := os.Stat(sourcePath)
-		if err != nil {
-			return err
-		}
-
-		// stat, ok := fileInfo.Sys().(*syscall.Stat_t)
-		// if !ok {
-		// 	return fmt.Errorf("failed to get raw syscall.Stat_t data for '%s'", sourcePath)
-		// }
-
-		switch fileInfo.Mode() & os.ModeType {
-		case os.ModeDir:
-			if err := CreateIfNotExists(destPath, 0755); err != nil {
-				return err
-			}
-			if err := CopyDirectory(sourcePath, destPath); err != nil {
-				return err
-			}
-		case os.ModeSymlink:
-			if err := CopySymLink(sourcePath, destPath); err != nil {
-				return err
-			}
-		default:
-			if err := Copy(sourcePath, destPath); err != nil {
-				return err
-			}
-		}
-
-		// if err := os.Lchown(destPath, int(stat.Uid), int(stat.Gid)); err != nil {
-		// 	return err
-		// }
-
-		fInfo, err := entry.Info()
-		if err != nil {
-			return err
-		}
-
-		isSymlink := fInfo.Mode()&os.ModeSymlink != 0
-		if !isSymlink {
-			if err := os.Chmod(destPath, fInfo.Mode()); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
+	return pdfBuffer
 }
 
-func Copy(srcFile, dstFile string) error {
-	out, err := os.Create(dstFile)
-	if err != nil {
-		return err
+func printToPDF(url string, res *[]byte) chromedp.Tasks {
+
+	start := time.Now()
+
+	return chromedp.Tasks{
+
+		// emulation.SetUserAgentOverride("alex 1.0"),
+
+		chromedp.Navigate(url),
+
+		// wait for footer element is visible (ie, page is loaded)
+		// chromedp.WaitVisible(`body`, chromedp.ByQuery),
+
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			buf, _, err := page.PrintToPDF().WithPrintBackground(true).Do(ctx)
+
+			if err != nil {
+				return err
+			}
+
+			*res = buf
+
+			fmt.Printf("\nTook: %f secs\n", time.Since(start).Seconds())
+
+			return nil
+		}),
 	}
-
-	defer out.Close()
-
-	in, err := os.Open(srcFile)
-	defer in.Close()
-	if err != nil {
-		return err
-	}
-
-	_, err = io.Copy(out, in)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func Exists(filePath string) bool {
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		return false
-	}
-
-	return true
-}
-
-func CreateIfNotExists(dir string, perm os.FileMode) error {
-	if Exists(dir) {
-		return nil
-	}
-
-	if err := os.MkdirAll(dir, perm); err != nil {
-		return fmt.Errorf("failed to create directory: '%s', error: '%s'", dir, err.Error())
-	}
-
-	return nil
-}
-
-func CopySymLink(source, dest string) error {
-	link, err := os.Readlink(source)
-	if err != nil {
-		return err
-	}
-	return os.Symlink(link, dest)
 }

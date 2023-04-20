@@ -11,7 +11,8 @@
             "mode": "auto",
             "program": "${workspaceFolder}",
             "args": [
-                "1111"
+                "553109",
+                "--token=yx4pcq7a3erlwrbxxxosio4az7aoatxqa2qs65fubqitvvv43ila"
             ]
         }
     ]
