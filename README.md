@@ -7,7 +7,7 @@ You must provide TFS item ID in parameter to this application
 
 ## Technical details
 
-This application using [wkhtmltopdf.org](https://wkhtmltopdf.org) as an engine to convert HTML page to PDF. The template for HTML located in `\template` folder and filled using GO [html/template](https://pkg.go.dev/html/template) rules
+This application using [chromedp](https://github.com/chromedp/chromedp) as an engine to convert HTML page to PDF. The template for HTML located in `\template` folder and filled using GO [html/template](https://pkg.go.dev/html/template) rules
 
 
 ## Deployment
@@ -15,9 +15,6 @@ This application using [wkhtmltopdf.org](https://wkhtmltopdf.org) as an engine t
 Once main application complied the deployment layout should be:
 
 ```
-bin\
-  \- wkhtmltopdf.exe
-
 template\
   |- template_files\
   \- template.htm
