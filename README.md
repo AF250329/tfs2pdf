@@ -22,4 +22,3 @@ template\
 tfs2pdf.exe
 ```
 
-* Some path to folder such as `\bin` are hardcoded in app itself
