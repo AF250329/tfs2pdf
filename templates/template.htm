@@ -1446,6 +1446,9 @@ page-break-before:always'>
   1'><b><span style='color:white;mso-themecolor:background1'>Status<o:p></o:p></span></b></p>
   </td>
  </tr>
+
+ {{ range .ImplementationItems }}
+
  <tr style='mso-yfti-irow:0'>
   <td width=75 valign=top style='width:56.45pt;border:solid #A8D08D 1.0pt;
   mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
@@ -1454,7 +1457,7 @@ page-break-before:always'>
   accent6;mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:
   accent6;mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  68'><span style='color:black;mso-color-alt:windowtext'>536905</span></p>
+  68'><span style='color:black;mso-color-alt:windowtext'>{{ .ID }}</span></p>
   </td>
   <td width=104 valign=top style='width:78.0pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1466,7 +1469,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>User Story</span></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .WorkItemType }}</span></p>
   </td>
   <td width=548 valign=top style='width:411.05pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1478,8 +1481,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>Prohibit Voiding EBT
-  items � Void item</span></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .Title }}</span></p>
   </td>
   <td width=180 valign=top style='width:134.65pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1491,8 +1493,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span class=SpellE><span style='color:black;mso-color-alt:windowtext'>Veluri</span></span><span
-  style='color:black;mso-color-alt:windowtext'>, <span class=SpellE>Vijayalaxmi</span></span></p>
+  64'>{{ .AssignedTo }}</p>
   </td>
   <td width=119 valign=top style='width:89.25pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1504,121 +1505,14 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>Done</span></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .Status }}</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=75 valign=top style='width:56.45pt;border:solid #A8D08D 1.0pt;
-  mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
-  mso-border-top-alt:solid #A8D08D .5pt;mso-border-top-themecolor:accent6;
-  mso-border-top-themetint:153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:
-  accent6;mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  4'>1ID</p>
-  </td>
-  <td width=104 valign=top style='width:78.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>2WorkItem</p>
-  </td>
-  <td width=548 valign=top style='width:411.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>3Title</p>
-  </td>
-  <td width=180 valign=top style='width:134.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>4AssignedTo</p>
-  </td>
-  <td width=119 valign=top style='width:89.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>5Status</p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=75 valign=top style='width:56.45pt;border:solid #A8D08D 1.0pt;
-  mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
-  mso-border-top-alt:solid #A8D08D .5pt;mso-border-top-themecolor:accent6;
-  mso-border-top-themetint:153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:
-  accent6;mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:
-  accent6;mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  68'><span style='color:black;mso-color-alt:windowtext'>1.2ID</span></p>
-  </td>
-  <td width=104 valign=top style='width:78.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>2.2WorkItem</span></p>
-  </td>
-  <td width=548 valign=top style='width:411.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>3.2Title</span></p>
-  </td>
-  <td width=180 valign=top style='width:134.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>4.2AssigneTo</span></p>
-  </td>
-  <td width=119 valign=top style='width:89.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>5.2Status</span></p>
-  </td>
- </tr>
+ 
+ {{end}}
+ 
+ 
 </table>
-
-{{end}}
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
@@ -1679,6 +1573,10 @@ page-break-before:always'>
   1'><b><span style='color:white;mso-themecolor:background1'>Link comment<o:p></o:p></span></b></p>
   </td>
  </tr>
+
+
+{{ .FeatureItems }}
+
  <tr style='mso-yfti-irow:0'>
   <td width=75 valign=top style='width:56.2pt;border:solid #A8D08D 1.0pt;
   mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
@@ -1687,7 +1585,7 @@ page-break-before:always'>
   accent6;mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:
   accent6;mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  68'><span style='color:black;mso-color-alt:windowtext'>100.Id</span><o:p></o:p></p>
+  68'><span style='color:black;mso-color-alt:windowtext'>{{ .ID }}</span><o:p></o:p></p>
   </td>
   <td width=538 valign=top style='width:403.7pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1699,7 +1597,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>100.Title</span><o:p></o:p></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .Title }}</span><o:p></o:p></p>
   </td>
   <td width=178 valign=top style='width:133.35pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1711,7 +1609,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>100.AssignedTo</span><o:p></o:p></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .AssignedTo }}</span><o:p></o:p></p>
   </td>
   <td width=118 valign=top style='width:88.5pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1723,7 +1621,7 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>100.State</span><o:p></o:p></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .Status }}</span><o:p></o:p></p>
   </td>
   <td width=117 valign=top style='width:87.65pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
@@ -1735,118 +1633,13 @@ page-break-before:always'>
   mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
   mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>100.LinkComments</span></p>
+  64'><span style='color:black;mso-color-alt:windowtext'>{{ .LinkComment }}</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=75 valign=top style='width:56.2pt;border:solid #A8D08D 1.0pt;
-  mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
-  mso-border-top-alt:solid #A8D08D .5pt;mso-border-top-themecolor:accent6;
-  mso-border-top-themetint:153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:
-  accent6;mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  4'>200.Id<o:p></o:p></p>
-  </td>
-  <td width=538 valign=top style='width:403.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>200.Title<o:p></o:p></p>
-  </td>
-  <td width=178 valign=top style='width:133.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>200.AssignedTo<o:p></o:p></p>
-  </td>
-  <td width=118 valign=top style='width:88.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>200.State<o:p></o:p></p>
-  </td>
-  <td width=117 valign=top style='width:87.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>200.LinkComment</p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=75 valign=top style='width:56.2pt;border:solid #A8D08D 1.0pt;
-  mso-border-themecolor:accent6;mso-border-themetint:153;border-top:none;
-  mso-border-top-alt:solid #A8D08D .5pt;mso-border-top-themecolor:accent6;
-  mso-border-top-themetint:153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:
-  accent6;mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:
-  accent6;mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  68'><span style='color:black;mso-color-alt:windowtext'>300.Id</span><o:p></o:p></p>
-  </td>
-  <td width=538 valign=top style='width:403.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>300.Title</span><o:p></o:p></p>
-  </td>
-  <td width=178 valign=top style='width:133.35pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>300.AssignedTo</span><o:p></o:p></p>
-  </td>
-  <td width=118 valign=top style='width:88.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>300.State</span><o:p></o:p></p>
-  </td>
-  <td width=117 valign=top style='width:87.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;
-  mso-border-bottom-themetint:153;border-right:solid #A8D08D 1.0pt;mso-border-right-themecolor:
-  accent6;mso-border-right-themetint:153;mso-border-top-alt:solid #A8D08D .5pt;
-  mso-border-top-themecolor:accent6;mso-border-top-themetint:153;mso-border-left-alt:
-  solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
-  153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
-  mso-border-themetint:153;background:#E2EFD9;mso-background-themecolor:accent6;
-  mso-background-themetint:51;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal;mso-yfti-cnfc:
-  64'><span style='color:black;mso-color-alt:windowtext'>300.LinkComment</span></p>
-  </td>
- </tr>
+
+ 
+ {{end}}
+
 </table>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
@@ -1872,6 +1665,8 @@ page-break-before:always'>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
+{{ if .HasHistoryItems }}
+
 <h2>History</h2>
 
 {{ range .History}}
@@ -1880,6 +1675,8 @@ page-break-before:always'>
 
 <p class=MsoNormal style='text-indent:36.0pt'><span style='font-family:"Arial",sans-serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:
 minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .Date }}</span><o:p></o:p></p>
+
+{{end}}
 
 {{end}}
 
@@ -1971,7 +1768,7 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
   solid #A8D08D .5pt;mso-border-left-themecolor:accent6;mso-border-left-themetint:
   153;mso-border-alt:solid #A8D08D .5pt;mso-border-themecolor:accent6;
   mso-border-themetint:153;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>{{ .AssigendTo }}<o:p></o:p></p>
+  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>{{ .AssignedTo }}<o:p></o:p></p>
   </td>
   <td width=118 valign=top style='width:88.5pt;border-top:none;border-left:
   none;border-bottom:solid #A8D08D 1.0pt;mso-border-bottom-themecolor:accent6;

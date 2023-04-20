@@ -16,7 +16,7 @@ type TfsReference struct {
 	ID           int
 	WorkItemType string
 	Title        string
-	AssigendTo   string
+	AssignedTo   string
 	Status       string
 	LinkComment  string
 }
@@ -61,6 +61,7 @@ type Data struct {
 	HasFeatureItems        bool
 	FeatureItems           []TfsReference
 	AcceptanceCriteria     string
+	HasHistoryItems        bool
 	History                []HistoryItem
 	AllLinks               []TfsReference
 	ImpactAnalysis         string
@@ -134,18 +135,20 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 				ID:           sourceItem.ID,
 				WorkItemType: sourceItem.Fields.SystemWorkItemType,
 				Title:        sourceItem.Fields.SystemTitle,
-				AssigendTo:   sourceItem.Fields.SystemAssignedTo,
+				AssignedTo:   sourceItem.Fields.SystemAssignedTo,
 				Status:       sourceItem.Fields.SystemState,
 				LinkComment:  "", // ??
 			})
 
+			data.HasImplementationItems = true
+
 		case "Hyperlink":
 			// This is link to external resource (sharepoint for example)
-			data.ImplementationItems = append(data.ImplementationItems, TfsReference{
+			data.AllLinks = append(data.AllLinks, TfsReference{
 				ID:           0,
 				WorkItemType: "Hyperlink",
 				Title:        "",
-				AssigendTo:   "",
+				AssignedTo:   "",
 				Status:       "",
 				LinkComment:  val.URL, // ??
 			})
@@ -166,7 +169,7 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 				ID:           sourceItem.ID,
 				WorkItemType: sourceItem.Fields.SystemWorkItemType,
 				Title:        sourceItem.Fields.SystemTitle,
-				AssigendTo:   sourceItem.Fields.SystemAssignedTo,
+				AssignedTo:   sourceItem.Fields.SystemAssignedTo,
 				Status:       sourceItem.Fields.SystemState,
 				LinkComment:  "", // ??
 			})
@@ -176,6 +179,10 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 	historyCollection, err := client.GetHistoryLinks(t.Links.WorkItemHistory.Href)
 	if err != nil {
 		panic(err)
+	}
+
+	if len(historyCollection.Value) > 0 {
+		data.HasHistoryItems = true
 	}
 
 	for _, val := range historyCollection.Value {

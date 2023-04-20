@@ -45,7 +45,7 @@ func (p *PdfData) Create(data *tfs.Data) error {
 
 	htmlFile = p.convertPath(htmlFile)
 
-	log.Default().Printf("trying to print it to PDF printer")
+	log.Default().Printf("trying to convert to PDF")
 
 	pdfRawData := p.loadPage(htmlFile)
 
@@ -134,7 +134,7 @@ func printToPDF(url string, res *[]byte) chromedp.Tasks {
 
 			*res = buf
 
-			fmt.Printf("\nTook: %f secs\n", time.Since(start).Seconds())
+			fmt.Printf("convert to PDF took: %f secs\n", time.Since(start).Seconds())
 
 			return nil
 		}),
