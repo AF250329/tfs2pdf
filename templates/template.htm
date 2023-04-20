@@ -945,7 +945,7 @@ span.GramE
 	mso-endnote-separator:url("template_files/header.htm") es;
 	mso-endnote-continuation-separator:url("template_files/header.htm") ecs;}
 @page WordSection1
-	{size:841.9pt 595.3pt;
+	{
 	mso-page-orientation:landscape;
 	margin:36.0pt 36.0pt 36.0pt 36.0pt;
 	mso-header-margin:0cm;
@@ -1144,6 +1144,12 @@ table.MsoTable15Grid4Accent6OddRow
 	mso-tstyle-shading:#E2EFD9;
 	mso-tstyle-shading-themecolor:accent6;
 	mso-tstyle-shading-themetint:51;}
+
+/* @page {
+    size: 8888mm;
+  } */
+
+
 </style>
 <![endif]--><!--[if gte mso 9]><xml>
  <o:shapedefaults v:ext="edit" spidmax="2050"/>
@@ -1373,26 +1379,23 @@ table.MsoTable15Grid4Accent6OddRow
 </table>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
-
-<span style='font-size:11.0pt;line-height:107%;font-family:"Calibri",sans-serif;
-mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
-minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Arial;
-mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
-EN-US;mso-bidi-language:HE'><br clear=all style='mso-special-character:line-break;
-page-break-before:always'>
-</span>
-
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Description</h2>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>{{ .Description }}<o:p></o:p></p>
 
 {{ if .HasImplementationItems }}
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
 <h2>Implementation</h2>
 
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <table class=MsoTable15Grid4Accent6 border=1 cellspacing=0 cellpadding=0
@@ -1514,12 +1517,13 @@ page-break-before:always'>
  
 </table>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
-
 {{ if .HasFeatureItems }}
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Feature</h2>
 
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <table class=MsoTable15Grid4Accent6 border=1 cellspacing=0 cellpadding=0
@@ -1642,34 +1646,32 @@ page-break-before:always'>
 
 </table>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
-
-<span style='font-size:11.0pt;line-height:107%;font-family:"Calibri",sans-serif;
-mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
-minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Arial;
-mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
-EN-US;mso-bidi-language:HE'><br clear=all style='mso-special-character:line-break;
-page-break-before:always'>
-</span>
-
 {{end}}
 
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Acceptance criteria</h2>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>{{ .AcceptanceCriteria }} <o:p></o:p></p>
 
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
-
 {{ if .HasHistoryItems }}
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>History</h2>
 
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
 {{ range .History}}
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>{{ .Title }}<o:p></o:p></p>
 
@@ -1680,6 +1682,7 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
 
 {{end}}
 
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>All links</h2>
@@ -1796,6 +1799,12 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
 
 </table>
 
+
+{{ if .HasImpactAnalysis }}
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Impact Analysis</h2>
@@ -1805,6 +1814,8 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
 <p class=MsoNormal>{{ .ImpactAnalysis }}<o:p></o:p></p>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+{{end}}
 
 </div>
 </body>
