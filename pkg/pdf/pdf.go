@@ -126,7 +126,12 @@ func printToPDF(url string, res *[]byte) chromedp.Tasks {
 		// chromedp.WaitVisible(`body`, chromedp.ByQuery),
 
 		chromedp.ActionFunc(func(ctx context.Context) error {
-			buf, _, err := page.PrintToPDF().WithPrintBackground(true).Do(ctx)
+			buf, _, err := page.PrintToPDF().
+				WithLandscape(true).
+				WithPreferCSSPageSize(false).
+				WithPrintBackground(true).
+				WithPaperWidth(50).
+				Do(ctx)
 
 			if err != nil {
 				return err
