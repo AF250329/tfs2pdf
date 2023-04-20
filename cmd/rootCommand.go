@@ -44,6 +44,12 @@ var rootCommand = &cobra.Command{
 
 func runApplication(cmd *cobra.Command, args []string) {
 
+	if pdfOutputFolder == "" {
+		// Set to current direcotry
+		dir, _ := os.Executable()
+		pdfOutputFolder = filepath.Dir(dir)
+	}
+
 	err := tfs2pdf.Run(args, pdfOutputFolder, tfsAddress, tfsToken)
 	if err != nil {
 		// Error should be already printed
@@ -55,7 +61,7 @@ func init() {
 	pdfOutputFolder = filepath.Dir(pdfOutputFolder)
 
 	rootCommand.PersistentFlags().StringVar(&pdfOutputFolder, "output", pdfOutputFolder, "Output folder where PDF file will be created")
-	// rootCommand.MarkPersistentFlagRequired("tfs-token")
+	// rootCommand.MarkPersistentFlagRequired("output")
 
 	// rootCommand.PersistentFlags().StringVar(&tfsAddress, "tfs-url", "http://almtfs.ncr.com:8080/tfs/DefaultCollection/R10StoreSolution", "URL of Team Foundation Server")
 	// rootCommand.MarkPersistentFlagRequired("tfs-url")
