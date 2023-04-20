@@ -64,6 +64,7 @@ type Data struct {
 	HasHistoryItems        bool
 	History                []HistoryItem
 	AllLinks               []TfsReference
+	HasImpactAnalysis      bool
 	ImpactAnalysis         string
 }
 
@@ -118,6 +119,11 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 		AcceptanceCriteria: strings.ReplaceAll(t.Fields.MicrosoftVSTSCommonAcceptanceCriteria, "susday2582", "susday2582.corp.ncr.com"),
 	}
 
+	if t.Fields.RetalixCustomTemplateImpactAnnalysisDetail != "" {
+		data.HasImpactAnalysis = true
+		data.ImpactAnalysis = t.Fields.RetalixCustomTemplateImpactAnnalysisDetail
+	}
+
 	for _, val := range t.Relations {
 
 		switch val.Rel {
@@ -147,7 +153,7 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 			data.AllLinks = append(data.AllLinks, TfsReference{
 				ID:           0,
 				WorkItemType: "Hyperlink",
-				Title:        "",
+				Title:        "Hyperlink",
 				AssignedTo:   "",
 				Status:       "",
 				LinkComment:  val.URL, // ??
