@@ -60,9 +60,11 @@ type Data struct {
 	ImplementationItems    []TfsReference
 	HasFeatureItems        bool
 	FeatureItems           []TfsReference
+	HasAcceptanceCriteria  bool
 	AcceptanceCriteria     string
 	HasHistoryItems        bool
 	History                []HistoryItem
+	HasAllLinks            bool
 	AllLinks               []TfsReference
 	HasImpactAnalysis      bool
 	ImpactAnalysis         string

@@ -1384,7 +1384,6 @@ table.MsoTable15Grid4Accent6OddRow
 <h2>Description</h2>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>{{ .Description }}<o:p></o:p></p>
 
@@ -1395,7 +1394,6 @@ table.MsoTable15Grid4Accent6OddRow
 
 <h2>Implementation</h2>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <table class=MsoTable15Grid4Accent6 border=1 cellspacing=0 cellpadding=0
@@ -1520,11 +1518,12 @@ table.MsoTable15Grid4Accent6OddRow
 {{ if .HasFeatureItems }}
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Feature</h2>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
 
 <table class=MsoTable15Grid4Accent6 border=1 cellspacing=0 cellpadding=0
  width="100%" style='width:100.0%;border-collapse:collapse;border:none;
@@ -1648,16 +1647,18 @@ table.MsoTable15Grid4Accent6OddRow
 
 {{end}}
 
+{{ if .HasAcceptanceCriteria }}
+
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <h2>Acceptance criteria</h2>
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 <p class=MsoNormal>{{ .AcceptanceCriteria }} <o:p></o:p></p>
 
+{{end}}
 
 {{ if .HasHistoryItems }}
 
@@ -1666,7 +1667,6 @@ table.MsoTable15Grid4Accent6OddRow
 
 <h2>History</h2>
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
 {{ range .History}}
@@ -1681,6 +1681,9 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
 {{end}}
 
 {{end}}
+
+
+{{ if .HasAllLinks }}
 
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
@@ -1799,11 +1802,10 @@ minor-latin;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin'>{{ .
 
 </table>
 
+{{end}}
 
 {{ if .HasImpactAnalysis }}
 
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
-<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 
