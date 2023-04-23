@@ -128,9 +128,40 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 
 	for _, val := range t.Relations {
 
+		// https://learn.microsoft.com/en-us/azure/devops/boards/queries/link-type-reference?view=azure-devops
 		switch val.Rel {
 
+		case "System.LinkTypes.Remote.Dependency-Reverse":
+			fallthrough
+		case "System.LinkTypes.Remote.Dependency-Forward":
+			fallthrough
+		case "System.LinkTypes.Duplicate-Forward":
+			fallthrough
+		case "System.LinkTypes.Duplicate-Reverse":
+			fallthrough
+		case "Microsoft.VSTS.TestCase.SharedParameterReferencedBy-Forward":
+			fallthrough
+		case "Microsoft.VSTS.TestCase.SharedParameterReferencedBy-Reverse":
+			fallthrough
+		case "Microsoft.VSTS.Common.TestedBy-Forward":
+			fallthrough
+		case "Microsoft.VSTS.Common.TestedBy-Reverse":
+			fallthrough
+		case "Microsoft.VSTS.TestCase.SharedStepReferencedBy-Forward":
+			fallthrough
+		case "Microsoft.VSTS.TestCase.SharedStepReferencedBy-Reverse":
+			fallthrough
+		case "System.LinkTypes.Dependency-Forward":
+			fallthrough
+		case "System.LinkTypes.Dependency-Reverse":
+			fallthrough
 		case "System.LinkTypes.Hierarchy-Forward":
+			fallthrough
+		case "System.LinkTypes.Hierarchy-Reverse":
+			fallthrough
+		case "System.LinkTypes.Related":
+			fallthrough
+		case "System.LinkTypes.Remote.Related":
 
 			sourceItem, err := client.GetWorkItem(val.URL)
 			if err != nil {
@@ -164,6 +195,10 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 		case "ArtifactLink":
 			// This is special link - directly to source code
 			// Don't need to get this item
+
+		case "AttachedFile":
+			// This is attachments
+			// Do not need to download it
 
 		default:
 
