@@ -123,7 +123,7 @@ func convert(t *TfsWorkItem, client *TfsHttpClient) *Data {
 
 	if t.Fields.RetalixCustomTemplateImpactAnnalysisDetail != "" {
 		data.HasImpactAnalysis = true
-		data.ImpactAnalysis = t.Fields.RetalixCustomTemplateImpactAnnalysisDetail
+		data.ImpactAnalysis = strings.ReplaceAll(t.Fields.RetalixCustomTemplateImpactAnnalysisDetail, "susday2582", "susday2582.corp.ncr.com")
 	}
 
 	for _, val := range t.Relations {
