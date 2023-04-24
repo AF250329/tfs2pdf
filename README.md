@@ -29,6 +29,8 @@ tfs2pdf.exe --token=yx4pcq7a3erlwrbxxxosio4az7aoatxqa2qs65fub  318371
 
 The PDF file will be generated with the same name as work item ID.
 
+Read here: [Wiki: How to generate TFS token](https://github.com/AF250329/tfs2pdf/wiki/How-to-create-TFS-access-token) in case you need to generate TFS token
+
 ## Deployment
 
 Once main application complied the deployment layout should be:
